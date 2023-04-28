@@ -18,8 +18,9 @@ void main() {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        // initialRoute: 'login',
         routes: {
-          '/' : (context) => LoginScreen(),
+          '/' : (context) => ApiScreen(),
           'pattern' : (context) => patternscreen(),
           'iud' : (context) => todoscreen(),
           'api' : (context) => ApiScreen(),

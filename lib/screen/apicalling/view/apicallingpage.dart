@@ -27,44 +27,41 @@ class _ApiScreenState extends State<ApiScreen> {
     fpro = Provider.of<apiprovider>(context, listen: false);
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(title: Text("Corona"),centerTitle: true),
         body: Center(
           child: FutureBuilder(
-            future: fpro!.apicall(),
             builder: (context, snapshot) {
               if(snapshot.hasError)
               {
                 return Text("${snapshot.error}");
               }
-              else if(snapshot.hasData)
-              {
-                Apimodel? a1 = snapshot.data as Apimodel?;
+              else if(snapshot.hasData) {
+                Apimodel? a1 = snapshot.data ;
                 return ListView.builder(itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.all(10),
-                    height:400,
-                    width: 300,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadiusDirectional.circular(20),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("${a1!.countriesStat![index].countryName}",),
-                        Text("${a1!.countriesStat![index].activeCases}",),
-                        Text("${a1!.countriesStat![index].deaths}",),
-                        Text("${a1!.countriesStat![index].totalRecovered}"),
-                        Text("${a1!.countriesStat![index].totalRecovered}"),
-                      ],
-                    ),
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text("Contry ${a1!.countriesStat![index].countryName}",style: TextStyle(color: Colors.cyanAccent)),
+                      SizedBox(height: 10,),
+                      Text("test=======${a1!.countriesStat![index].totalTests}"),
+                      SizedBox(height: 10,),
+                      Text("total death====${a1!.countriesStat![index].deaths}",),
+                      SizedBox(height: 10,),
+                      Text("Recovered===${a1!.countriesStat![index].totalRecovered}"),
+                      SizedBox(height: 10,),
+                      Text("active case ======${a1!.countriesStat![index].activeCases}",),
+                      Divider(
+                        color: Colors.black,
+                      ),
+                    ],
                   );
-                },itemCount: a1!.countriesStat!.length,);
+                }, itemCount: a1!.countriesStat!.length,);
               }
+
               return CircularProgressIndicator();
             },
-
+            future: fpro!.apicall(),
           ),
         ),
       ),
